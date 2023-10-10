@@ -1,12 +1,12 @@
 ### Obtencion de todos los productos
-GET http://localhost:1234/productos/
+GET http://localhost:3000/productos/
 
 ### Obtención de un producto específico
 
-GET http://localhost:1234/productos/3/
+GET http://localhost:3000/productos/3/
 
 ### Agregado de un producto nuevo, el body lleva el json con el objeto
-POST http://localhost:1234/productos
+POST http://localhost:3000/productos
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ### Actualización de un producto, el body lleva solo el atributo a modificar
 
-PATCH http://localhost:1234/productos/10
+PATCH http://localhost:3000/productos/10
 Content-Type: application/json
 
 {
@@ -26,20 +26,20 @@ Content-Type: application/json
 }
 
 ### Borrado de un producto
-DELETE http://localhost:1234/productos/8
+DELETE http://localhost:3000/productos/8
 
 
 
 
 
 ### Obtencion de todos los Usuarios
-GET http://localhost:1234/usuarios/
+GET http://localhost:3000/usuarios/
 
 ### Obtención de un Usuario especifico por su ID
-GET http://localhost:1234/usuarios/3/
+GET http://localhost:3000/usuarios/3/
 
 ### Agregar un nuevo Usuario
-POST http://localhost:1234/usuarios/
+POST http://localhost:3000/usuarios/
 Content-Type: application/json
 
 {
@@ -51,7 +51,7 @@ Content-Type: application/json
 }
 
 ### Modificar atributo de usuario
-PATCH http://localhost:1234/usuarios/2
+PATCH http://localhost:3000/usuarios/2
 Content-Type: application/json
 
 {
@@ -59,6 +59,6 @@ Content-Type: application/json
 }
 
 ### Borrado de un usuario
-DELETE http://localhost:1234/usuarios/1
+DELETE http://localhost:3000/usuarios/1
 
 

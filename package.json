@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "description": "Proyecto final integrador segunda etapa curso Full Stack UNAM 2023",
   "main": "index.js",
-	"type": "module",
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
     "lint": "eslint"
   },
 	"keywords": [],
-  "author": "",
+  "author": "Sadaniswski Horacio",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.50.0",
