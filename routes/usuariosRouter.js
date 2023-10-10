@@ -1,105 +1,102 @@
-const express = require ('express');
-const datos = require('../datos.json');
+import express from 'express';
+import Usuario from '../models/usuario.js';
 
 const router = express.Router();
 
 //Usuarios
 // 1 listado completo de usuarios
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
 	try {
-		let allUsers = datos.usuarios;
+			let allUsers = await Usuario.findAll();
 
-		res.status(200).json(allUsers);
+			res.status(200).json(allUsers);
 	} catch (error) {
-		res.status(500).json({ 'message': 'Error interno del servidor' });
+			res.status(500).json({ "message": "Error interno del servidor" });
 	}
 });
 
 // 2 Datos de un usuario consignado por su ID
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
 	try {
-		const userId = parseInt(req.params.id);
+			const userId = parseInt(req.params.id);
 
-		const usuarioEncontrado = datos.usuarios.find((usuario) => usuario.id === userId);
+			const usuarioEncontrado = await Usuario.findByPk(userId);
 
-		if (!usuarioEncontrado) {
-			res.status(404).json({ 'message': 'Usuario no encontrado' });
-		} else {
-			res.status(200).json(usuarioEncontrado);
-		}
+			if (!usuarioEncontrado) {
+					res.status(404).json({ "message": "Usuario no encontrado" });
+			} else {
+					res.status(200).json(usuarioEncontrado);
+			}
 	} catch (error) {
-		res.status(500).json({ 'message': 'Error interno del servidor' });
+			res.status(500).json({ "message": "Error interno del servidor" });
 	}
 });
 
 // 3 guardar un nuevo usuario
 router.post('/', (req, res) => {
 	try {
-		let bodyTemp = '';
+			let bodyTemp = ''
 
-		req.on('data', (chunk) => {
-			bodyTemp += chunk.toString();
-		});
+			req.on('data', (chunk) => {
+					bodyTemp += chunk.toString()
+			})
 
-		req.on('end', () => {
-			const data = JSON.parse(bodyTemp);
-			req.body = data;
-			datos.usuarios.push(req.body);
-		});
+			req.on('end', async () => {
+					const data = JSON.parse(bodyTemp)
+					req.body = data
+					const usuarioSave = new Usuario(req.body);
+					await usuarioSave.save();
+			});
 
-		res.status(201).json({'message': 'Usuario guardado exitosamente'});
+			res.status(201).json({"message": "Usuario guardado exitosamente"})
 
 	} catch (error) {
-		res.status(204).json({'message': 'error'});
+			res.status(204).json({"message": "error"})
 	}
 });
 
 
 // 4 modificar atributo de un usuario especifico
-router.patch('/:id', (req, res) => {
+router.patch('/:id', async (req, res) => {
 	let idUsuarioAActualizar = parseInt(req.params.id);
-	let usuarioAActualizar = datos.usuarios.find((usuario) => usuario.id === idUsuarioAActualizar);
+	let usuarioAActualizar = await Usuario.findByPk(idUsuarioAActualizar);
 
 	if (!usuarioAActualizar) {
-		res.status(404).json({ 'message': 'Usuario no encontrado' });
+			res.status(404).json({ "message": "Usuario no encontrado" });
 	} else {
-		let bodyTemp = '';
+			let bodyTemp = '';
 
-		req.on('data', (chunk) => {
-			bodyTemp += chunk.toString();
-		});
+			req.on('data', (chunk) => {
+					bodyTemp += chunk.toString();
+			});
 
-		req.on('end', () => {
-			const data = JSON.parse(bodyTemp);
+			req.on('end', async () => {
+					const data = JSON.parse(bodyTemp);
+					req.body = data;
 
-			for (const atributo in data) {
-				if (Object.hasOwnProperty.call(data, atributo)) {
-					usuarioAActualizar[atributo] = data[atributo];
-				}
-			}
+					await usuarioAActualizar.update(req.body);
 
-			res.status(200).json({ 'message': 'Usuario actualizado exitosamente', 'usuario': usuarioAActualizar });
-		});
+					res.status(200).json({ "message": "Usuario actualizado exitosamente", "usuario": usuarioAActualizar });
+			});
 	}
 });
 
-// Borrar un Usuario especifico
-router.delete('/:id', (req, res) => {
-	let idUsuarioABorrar = parseInt(req.params.id);
-	let usuarioABorrar = datos.usuarios.find((usuario) => usuario.id === idUsuarioABorrar);
+// 5 Borrar un Usuario especifico
+router.delete('/:id', async (req, res) => {
+	let idUsuarioABorrar = parseInt(req.params.id)
+	let usuarioABorrar = await Usuario.findByPk(idUsuarioABorrar);
 
 	if (!usuarioABorrar){
-		res.status(204).json({'message':'Usuario no encontrado'});
+			res.status(204).json({"message":"Usuario no encontrado"})
 	}
 
-	let indiceUsuarioABorrar = datos.usuarios.indexOf(usuarioABorrar);
 	try {
-		datos.usuarios.splice(indiceUsuarioABorrar, 1);
-		res.status(200).json({'message': 'El borrado se ha realizado exitosamente', 'Usuario Borrado': usuarioABorrar});
+			await usuarioABorrar.destroy();
+	res.status(200).json({"message": "El borrado se ha realizado exitosamente", "Usuario Borrado": usuarioABorrar})
 
 	} catch (error) {
-		res.status(204).json({'message': 'El borrado no pudo realizarse'});
+			res.status(204).json({"message": "El borrado no pudo realizarse"})
 	}
 });
 
-module.exports = router;
+export default router;

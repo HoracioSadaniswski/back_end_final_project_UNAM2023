@@ -8,7 +8,7 @@
     "start": "node index.js",
     "lint": "eslint"
   },
-	"keywords": [],
+  "keywords": [],
   "author": "Sadaniswski Horacio",
   "license": "ISC",
   "devDependencies": {
@@ -16,9 +16,14 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "nodemon": "^3.0.1",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "standard": "^17.1.0"
   },
   "dependencies": {
-    "express": "^4.18.2"
-  }
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.33.0"
+  },
+  "type": "module"
 }

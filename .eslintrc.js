@@ -7,9 +7,7 @@ module.exports = {
 	'overrides': [
 		{
 			'env': {
-				'node': true,
-				'jest': true,
-				'es6' : true
+				'node': true
 			},
 			'files': [
 				'.eslintrc.{js,cjs}'
@@ -38,7 +36,7 @@ module.exports = {
 		],
 		'semi': [
 			'error',
-			'always'
+			'never'
 		]
 	}
 };

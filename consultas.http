@@ -43,11 +43,13 @@ POST http://localhost:3000/usuarios/
 Content-Type: application/json
 
 {
-    "id": 11,
-    "nombre": "Nuevo Usuario",
-    "edad": 28,
-    "email": "nuevo@usuario.com",
-    "telefono": "+1 123-456-7890"
+    "nombres": "Nuevo Usuario",
+		"apellidos": "apellido usuario",
+    "dni": "12345678",
+    "correo": "nuevo@usuario.com",
+    "telefono": "+1 123-456-7890",
+		"rol": "cliente",
+		"contrasena": "1234"
 }
 
 ### Modificar atributo de usuario
@@ -55,7 +57,7 @@ PATCH http://localhost:3000/usuarios/2
 Content-Type: application/json
 
 {
-    "edad": 30
+    "rol": "cliente"
 }
 
 ### Borrado de un usuario
