@@ -3,26 +3,28 @@ GET http://localhost:3000/productos/
 
 ### Obtención de un producto específico
 
-GET http://localhost:3000/productos/3/
+GET http://localhost:3000/productos/26/
 
 ### Agregado de un producto nuevo, el body lleva el json con el objeto
 POST http://localhost:3000/productos
 Content-Type: application/json
 
 {
-    "id": 11,
-    "nombre": "Mixer multiuso ACME",
-    "tipo": "Electrodoméstico de cocina",
-    "precio": 150.15
+  "nombre": "Tv smart",
+  "descripcion": "Excelente tv smart 4k",
+  "precio": "300.00",
+  "stock": 9,
+  "categoria_id": 2,
+  "imagen_url": "tvSmart.jpg"
 }
 
 ### Actualización de un producto, el body lleva solo el atributo a modificar
 
-PATCH http://localhost:3000/productos/10
+PATCH http://localhost:3000/productos/31
 Content-Type: application/json
 
 {
-    "nombre": "Mixer multiuso ACME PODEROSO"
+    "precio": "350.00"
 }
 
 ### Borrado de un producto
@@ -53,14 +55,14 @@ Content-Type: application/json
 }
 
 ### Modificar atributo de usuario
-PATCH http://localhost:3000/usuarios/2
+PATCH http://localhost:3000/usuarios/6
 Content-Type: application/json
 
 {
-    "rol": "cliente"
+    "nombres": "nuevo nombre"
 }
 
 ### Borrado de un usuario
-DELETE http://localhost:3000/usuarios/1
+DELETE http://localhost:3000/usuarios/6
 
 
