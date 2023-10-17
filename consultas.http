@@ -66,3 +66,27 @@ Content-Type: application/json
 DELETE http://localhost:3000/usuarios/6
 
 
+###--------------------------------------------- CATEGORIAS ----------------------------------------------
+###Obtención de todas las Categorías
+GET http://localhost:3000/categorias/
+
+###Obtención de una Categoría específica por su ID
+GET http://localhost:3000/categorias/1/
+
+###Agregar una nueva Categoría
+POST http://localhost:3000/categorias/
+Content-Type: application/json
+
+{
+  "nombre": "Nueva Categoría"
+}
+###Actualización de una Categoría, el body lleva solo el atributo a modificar
+PATCH http://localhost:3000/categorias/2
+Content-Type: application/json
+
+{
+    "nombre": "Nueva Categoría Modificada"
+}
+###Borrado de una Categoría
+DELETE http://localhost:3000/categorias/3
+
