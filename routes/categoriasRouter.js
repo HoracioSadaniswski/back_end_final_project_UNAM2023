@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Categorías
 // Lista completa de categorías
-router.get('/categorias', async (req, res) => {
+router.get('/', async (req, res) => {
 	try {
 		const allCategorias = await Categoria.findAll();
 		res.status(200).json(allCategorias);
@@ -15,7 +15,7 @@ router.get('/categorias', async (req, res) => {
 });
 
 // Búsqueda de categoría por ID
-router.get('/categorias/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
 	try {
 		const categoriaId = parseInt(req.params.id);
 		const categoriaEncontrada = await Categoria.findByPk(categoriaId);
@@ -26,35 +26,55 @@ router.get('/categorias/:id', async (req, res) => {
 });
 
 // Agregar una nueva categoría
-router.post('/categorias', async (req, res) => {
+router.post('/', (req, res) => {
 	try {
-		const data = req.body;
-		const categoriaNueva = new Categoria(data);
-		await categoriaNueva.save();
-		res.status(201).json({ 'message': 'Categoría creada con éxito' });
+		let bodyTemp = '';
+
+		req.on('data', (chunk) => {
+			bodyTemp += chunk.toString();
+		});
+
+		req.on('end', async () => {
+			const data = JSON.parse(bodyTemp);
+			req.body = data;
+			const categoriaSave = new Categoria(req.body);
+			await categoriaSave.save();
+		});
+
+		res.status(201).json({'messege': 'Categoría agregada correctamente'});
+
 	} catch (error) {
-		res.status(204).json({ 'message': 'Error al crear la categoría' });
+		res.status(204).json({'messege': 'Error, no se puedo registrar la categoría'});
 	}
 });
 
 // Modificar una categoría por su ID
-router.patch('/categorias/:id', async (req, res) => {
-	try {
-		const idCategoriaAEditar = parseInt(req.params.id);
-		const categoriaAActualizar = await Categoria.findByPk(idCategoriaAEditar);
-		if (!categoriaAActualizar) {
-			res.status(204).json({ 'message': 'Categoría no encontrada' });
-		} else {
-			await categoriaAActualizar.update(req.body);
-			res.status(200).json({ 'message': 'Categoría actualizada con éxito' });
-		}
-	} catch (error) {
-		res.status(204).json({ 'message': 'Error al actualizar la categoría' });
+router.patch('/:id', async (req, res) => {
+	let idCategoriaAEditar = parseInt(req.params.id);
+	let categoriaAActualizar = await Categoria.findByPk(idCategoriaAEditar);
+
+	if (!categoriaAActualizar) {
+		res.status(204).json({'message':'Producto no encontrado'});
 	}
+
+	let bodyTemp = '';
+
+	req.on('data', (chunk) => {
+		bodyTemp += chunk.toString();
+	});
+
+	req.on('end', async () => {
+		const data = JSON.parse(bodyTemp);
+		req.body = data;
+
+		await categoriaAActualizar.update(req.body);
+
+		res.status(200).send('Categoría actualizada');;
+	});
 });
 
 // Eliminar una categoría por su ID
-router.delete('/categorias/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
 	try {
 		const idCategoriaABorrar = parseInt(req.params.id);
 		const categoriaABorrar = await Categoria.findByPk(idCategoriaABorrar);
