@@ -25,14 +25,14 @@ async function authentication (req, res) {
 	// generarión del token
 	const sub = usuarioEncontrado[0].id;
 	const usuario = usuarioEncontrado[0].usuario;
-	const nivel = usuarioEncontrado[0].nivel_us;
+	const nivel = usuarioEncontrado[0].nivel;
 
 	//firma y construccion del token
 	const token = jwt.sign({
 			sub,
 			usuario,
 			nivel,
-			exp: Date.now() + (60 * 1000)
+			exp: Date.now() + (60 * 10000)
 	}, process.env.SECRET_KEY);
 
 	res.status(200).json({ accessToken: token });

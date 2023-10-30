@@ -23,43 +23,55 @@ export async function getCategoryById (req, res) {
 
 // Agregar una nueva categoría
 export async function saveNewCategory (req, res) {
-	try {
-			const categoriaSave = new Categoria(req.body);
-			await categoriaSave.save();
+	if (req.nivelUsuario !== 3) {
+		return res.status(401).json({'message':'Debes ser Administrador para realizar esta acción'});
+	} else {
+		try {
+				const categoriaSave = new Categoria(req.body);
+				await categoriaSave.save();
 
-		res.status(201).json({'messege': 'Categoría agregada correctamente'});
+			res.status(201).json({'messege': 'Categoría agregada correctamente'});
 
-	} catch (error) {
-		res.status(204).json({'messege': 'Error, no se puedo registrar la categoría'});
-	}
+		} catch (error) {
+			res.status(204).json({'messege': 'Error, no se puedo registrar la categoría'});
+		}
+	};
 };
 
 // Modificar una categoría por su ID
 export async function editCategoryById (req, res) {
-	let idCategoriaAEditar = parseInt(req.params.id);
-	let categoriaAActualizar = await Categoria.findByPk(idCategoriaAEditar);
-
-	if (!categoriaAActualizar) {
-		res.status(204).json({'message':'Producto no encontrado'});
+	if (req.nivelUsuario !== 3) {
+		return res.status(401).json({'message':'Debes ser Administrador para realizar esta acción'});
 	} else {
-		await categoriaAActualizar.update(req.body);
+		let idCategoriaAEditar = parseInt(req.params.id);
+		let categoriaAActualizar = await Categoria.findByPk(idCategoriaAEditar);
 
-		res.status(200).send('Categoría actualizada');;
+		if (!categoriaAActualizar) {
+			res.status(204).json({'message':'Producto no encontrado'});
+		} else {
+			await categoriaAActualizar.update(req.body);
+
+			res.status(200).send('Categoría actualizada');;
+		};
 	};
 };
 
 // Eliminar una categoría por su ID
 export async function deleteCategoryById (req, res) {
-	try {
-		const idCategoriaABorrar = parseInt(req.params.id);
-		const categoriaABorrar = await Categoria.findByPk(idCategoriaABorrar);
-		if (!categoriaABorrar) {
-			res.status(204).json({ 'message': 'Categoría no encontrada' });
-		} else {
-			await categoriaABorrar.destroy();
-			res.status(200).json({ 'message': 'Categoría eliminada con éxito' });
+	if (req.nivelUsuario !== 3) {
+		return res.status(401).json({'message':'Debes ser Administrador para realizar esta acción'});
+	} else {
+		try {
+			const idCategoriaABorrar = parseInt(req.params.id);
+			const categoriaABorrar = await Categoria.findByPk(idCategoriaABorrar);
+			if (!categoriaABorrar) {
+				res.status(204).json({ 'message': 'Categoría no encontrada' });
+			} else {
+				await categoriaABorrar.destroy();
+				res.status(200).json({ 'message': 'Categoría eliminada con éxito' });
+			}
+		} catch (error) {
+			res.status(204).json({ 'message': 'Error al eliminar la categoría' });
 		}
-	} catch (error) {
-		res.status(204).json({ 'message': 'Error al eliminar la categoría' });
-	}
+	};
 };

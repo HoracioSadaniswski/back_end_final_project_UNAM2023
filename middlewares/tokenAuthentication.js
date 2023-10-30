@@ -25,6 +25,7 @@ function tokenAuthentication(req, res, next) {
 
 	//superadas las validaciones
 	req.user = payload.sub;
+	req.nivelUsuario = payload.nivel;
 
 	next();
 };

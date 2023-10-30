@@ -4,8 +4,8 @@ POST http://localhost:3000/auth
 Content-Type: application/json
 
     {
-        "usuario": "usuario123",
-        "password": "1234"
+        "usuario": "juan123",
+        "password": "password1"
     }
 
 
@@ -59,7 +59,7 @@ GET http://localhost:3000/productos/32/
 ### Agregado de un producto nuevo, el body lleva el json con el objeto
 POST http://localhost:3000/productos
 Content-Type: application/json
-Authorization: Bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJ1c3VhcmlvIjoicGVkcm83ODkiLCJuaXZlbCI6MywiZXhwIjoxNjk4Njg3MjgwMjA2LCJpYXQiOjE2OTg2ODY2ODB9.ew0xq4Ew_QolETttLiza48hqEyEbBmli4TkEiCFFphU
 
 {
   "nombre": "Monitor 144Hz",
@@ -71,17 +71,17 @@ Authorization: Bearer
 }
 
 ### Actualización de un producto, el body lleva solo el atributo a modificar
-PATCH http://localhost:3000/productos/31
+PATCH http://localhost:3000/productos/33
 Content-Type: application/json
-Authorization: Bearer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODY4NzM1MTI0NiwiaWF0IjoxNjk4Njg2NzUxfQ.NVKf8IwsngjHpjnpnEjVZ9iyz952-tCUsZO4zvDMWlk
 
 {
     "precio": "350.00"
 }
 
 ### Borrado de un producto
-DELETE http://localhost:3000/productos/
-Authorization:
+DELETE http://localhost:3000/productos/32
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJ1c3VhcmlvIjoicGVkcm83ODkiLCJuaXZlbCI6MywiZXhwIjoxNjk4Njg2ODczMzQ0LCJpYXQiOjE2OTg2ODYyNzN9.YTefS74r0MybrjzgW0KaDICZ92yEHgVy6yNIBK_qG8c
 
 
 
