@@ -31,18 +31,8 @@ export async function getDataUserById (req, res) {
 //guardar un nuevo usuario
 export async function saveNewUser (req, res) {
 	try {
-		let bodyTemp = '';
-
-		req.on('data', (chunk) => {
-			bodyTemp += chunk.toString();
-		});
-
-		req.on('end', async () => {
-			const data = JSON.parse(bodyTemp);
-			req.body = data;
-			const usuarioSave = new Usuario(req.body);
-			await usuarioSave.save();
-		});
+		const usuarioSave = new Usuario(req.body);
+    await usuarioSave.save();
 
 		res.status(201).json({'message': 'Usuario guardado exitosamente'});
 
@@ -59,22 +49,12 @@ export async function editUserById (req, res) {
 	if (!usuarioAActualizar) {
 		res.status(404).json({ 'message': 'Usuario no encontrado' });
 	} else {
-		let bodyTemp = '';
+		await usuarioAActualizar.update(req.body);
 
-		req.on('data', (chunk) => {
-			bodyTemp += chunk.toString();
-		});
-
-		req.on('end', async () => {
-			const data = JSON.parse(bodyTemp);
-			req.body = data;
-
-			await usuarioAActualizar.update(req.body);
-
-			res.status(200).json({ 'message': 'Usuario actualizado exitosamente', 'usuario': usuarioAActualizar });
-		});
-	}
+		res.status(200).json({ 'message': 'Usuario actualizado exitosamente', 'usuario': usuarioAActualizar });
+	};
 };
+
 
 //eliminar un usuario de la db
 export async function deleteUserById (req, res) {

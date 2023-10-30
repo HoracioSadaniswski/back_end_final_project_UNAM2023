@@ -8,8 +8,9 @@ const Usuario = db.define('Usuario',
 		dni: { type: DataTypes.STRING },
 		correo: { type: DataTypes.STRING },
 		telefono: { type: DataTypes.STRING },
-		rol: { type: DataTypes.STRING },
-		contrasena: { type: DataTypes.STRING }
+		nivel: { type: DataTypes.INTEGER },
+		password: { type: DataTypes.STRING },
+		usuario: { type: DataTypes.STRING }
 	},
 	{
 		timestamps: false,

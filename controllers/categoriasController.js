@@ -24,18 +24,8 @@ export async function getCategoryById (req, res) {
 // Agregar una nueva categoría
 export async function saveNewCategory (req, res) {
 	try {
-		let bodyTemp = '';
-
-		req.on('data', (chunk) => {
-			bodyTemp += chunk.toString();
-		});
-
-		req.on('end', async () => {
-			const data = JSON.parse(bodyTemp);
-			req.body = data;
 			const categoriaSave = new Categoria(req.body);
 			await categoriaSave.save();
-		});
 
 		res.status(201).json({'messege': 'Categoría agregada correctamente'});
 
@@ -51,22 +41,11 @@ export async function editCategoryById (req, res) {
 
 	if (!categoriaAActualizar) {
 		res.status(204).json({'message':'Producto no encontrado'});
-	}
-
-	let bodyTemp = '';
-
-	req.on('data', (chunk) => {
-		bodyTemp += chunk.toString();
-	});
-
-	req.on('end', async () => {
-		const data = JSON.parse(bodyTemp);
-		req.body = data;
-
+	} else {
 		await categoriaAActualizar.update(req.body);
 
 		res.status(200).send('Categoría actualizada');;
-	});
+	};
 };
 
 // Eliminar una categoría por su ID

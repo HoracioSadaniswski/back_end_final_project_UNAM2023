@@ -1,48 +1,28 @@
-### Obtencion de todos los productos
-GET http://localhost:3000/productos/
-
-### Obtención de un producto específico
-
-GET http://localhost:3000/productos/26/
-
-### Agregado de un producto nuevo, el body lleva el json con el objeto
-POST http://localhost:3000/productos
+###---------------------------------------------------------------LOGIN-------------------------------------------------------------------------------
+### Request desde el formulario de logueo en el front
+POST http://localhost:3000/auth
 Content-Type: application/json
 
-{
-  "nombre": "Tv smart",
-  "descripcion": "Excelente tv smart 4k",
-  "precio": "300.00",
-  "stock": 9,
-  "categoria_id": 2,
-  "imagen_url": "tvSmart.jpg"
-}
-
-### Actualización de un producto, el body lleva solo el atributo a modificar
-
-PATCH http://localhost:3000/productos/31
-Content-Type: application/json
-
-{
-    "precio": "350.00"
-}
-
-### Borrado de un producto
-DELETE http://localhost:3000/productos/8
+    {
+        "usuario": "usuario123",
+        "password": "1234"
+    }
 
 
-
-
+###---------------------------------------------------------------USUARIOS--------------------------------------------------------------------------
 
 ### Obtencion de todos los Usuarios
 GET http://localhost:3000/usuarios/
 
+
 ### Obtención de un Usuario especifico por su ID
-GET http://localhost:3000/usuarios/8/
+GET http://localhost:3000/usuarios/10/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwiZXhwIjoxNjk4NjgxNDg5NzgzLCJpYXQiOjE2OTg2ODE0Mjl9.P_Dpkalduky7YxIq-aaX4wQsUfwYr6dtNmPUN-dZe94
 
 ### Agregar un nuevo Usuario
 POST http://localhost:3000/usuarios/
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwiZXhwIjoxNjk4NjgxNjMxMzAyLCJpYXQiOjE2OTg2ODE1NzF9.kI69xrpIUeJEPtLxHwM-hoUzvDAa0NKVirzAD_1OX5U
 
 {
     "nombres": "Nuevo Usuario",
@@ -50,20 +30,59 @@ Content-Type: application/json
     "dni": "12345678",
     "correo": "nuevo@usuario.com",
     "telefono": "+1 123-456-7890",
-		"rol": "cliente",
-		"contrasena": "1234"
+		"nivel": 1,
+		"password": "1234",
+		"usuario": "usuario123"
 }
 
 ### Modificar atributo de usuario
 PATCH http://localhost:3000/usuarios/6
 Content-Type: application/json
+Authorization: Bearer
 
 {
     "nombres": "nuevo nombre"
 }
 
 ### Borrado de un usuario
-DELETE http://localhost:3000/usuarios/7
+DELETE http://localhost:3000/usuarios/5
+Authorization: Bearer
+
+###---------------------------------------------------------------PRODUCTOS---------------------------------------------------------------------------
+
+### Obtencion de todos los productos
+GET http://localhost:3000/productos/
+
+### Obtención de un producto específico
+GET http://localhost:3000/productos/32/
+
+### Agregado de un producto nuevo, el body lleva el json con el objeto
+POST http://localhost:3000/productos
+Content-Type: application/json
+Authorization: Bearer
+
+{
+  "nombre": "Monitor 144Hz",
+  "descripcion": "Monitor gamer marca LG",
+  "precio": "320.00",
+  "stock": 5,
+  "categoria_id": 1,
+  "imagen_url": "Monitor.jpg"
+}
+
+### Actualización de un producto, el body lleva solo el atributo a modificar
+PATCH http://localhost:3000/productos/31
+Content-Type: application/json
+Authorization: Bearer
+
+{
+    "precio": "350.00"
+}
+
+### Borrado de un producto
+DELETE http://localhost:3000/productos/
+Authorization:
+
 
 
 ###--------------------------------------------- CATEGORIAS ----------------------------------------------
@@ -76,6 +95,7 @@ GET http://localhost:3000/categorias/11/
 ###Agregar una nueva Categoría
 POST http://localhost:3000/categorias/
 Content-Type: application/json
+Authorization: Bearer
 
 {
   "nombre": "Nueva Categoría"
@@ -83,10 +103,12 @@ Content-Type: application/json
 ###Actualización de una Categoría, el body lleva solo el atributo a modificar
 PATCH http://localhost:3000/categorias/11
 Content-Type: application/json
+Authorization: Bearer
 
 {
     "nombre": "Nueva Categoría Modificada"
 }
 ###Borrado de una Categoría
-DELETE http://localhost:3000/categorias/12
+DELETE http://localhost:3000/categorias/11
+Authorization: Bearer
 

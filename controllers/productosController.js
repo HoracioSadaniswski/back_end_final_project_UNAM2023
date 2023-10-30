@@ -28,23 +28,15 @@ export async function getOneProductById (req, res) {
 //agregar un nuevo producto
 export async function saveProduct (req, res) {
 	try {
-		let bodyTemp = '';
+		//datos.productos.push(req.body)
+		const productSave = new Producto(req.body);
+		//guardado nuevo producto
+		await productSave.save();
 
-		req.on('data', (chunk) => {
-			bodyTemp += chunk.toString();
-		});
-
-		req.on('end', async () => {
-			const data = JSON.parse(bodyTemp);
-			req.body = data;
-			const productSave = new Producto(req.body);
-			await productSave.save();
-		});
-
-		res.status(201).json({'message': 'success"'});
+		res.status(201).json({"message": "success"});
 
 	} catch (error) {
-		res.status(204).json({'message': 'error'});
+		res.status(204).json({"message": "error"});
 	}
 };
 
@@ -56,22 +48,11 @@ export async function editProductById (req, res) {
 	if (!productoAActualizar) {
 		res.status(204).json({'message':'Producto no encontrado'});
 	}
+	await productoAActualizar.update(req.body);
 
-	let bodyTemp = '';
-
-	req.on('data', (chunk) => {
-		bodyTemp += chunk.toString();
-	});
-
-	req.on('end', async () => {
-		const data = JSON.parse(bodyTemp);
-		req.body = data;
-
-		await productoAActualizar.update(req.body);
-
-		res.status(200).send('Producto actualizado');;
-	});
+	res.status(200).send('Producto actualizado');;
 };
+
 
 //eliminar un producto de la db
 export async function deleteProduct (req, res) {
