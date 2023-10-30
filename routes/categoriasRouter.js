@@ -1,92 +1,13 @@
 import express from 'express';
-import Categoria from '../models/categoria.js';
 
-const router = express.Router();
+const categoriasRouter = express.Router();
 
-// Categorías
-// Lista completa de categorías
-router.get('/', async (req, res) => {
-	try {
-		const allCategorias = await Categoria.findAll();
-		res.status(200).json(allCategorias);
-	} catch (error) {
-		res.status(204).json({ 'message': error });
-	}
-});
+import { getAllCategories, getCategoryById, saveNewCategory, editCategoryById, deleteCategoryById } from '../controllers/categoriasController.js';
 
-// Búsqueda de categoría por ID
-router.get('/:id', async (req, res) => {
-	try {
-		const categoriaId = parseInt(req.params.id);
-		const categoriaEncontrada = await Categoria.findByPk(categoriaId);
-		res.status(200).json(categoriaEncontrada);
-	} catch (error) {
-		res.status(204).json({ 'message': error });
-	}
-});
+categoriasRouter.get('/', getAllCategories);
+categoriasRouter.get('/:id', getCategoryById);
+categoriasRouter.post('/', saveNewCategory);
+categoriasRouter.patch('/:id', editCategoryById);
+categoriasRouter.delete('/:id', deleteCategoryById);
 
-// Agregar una nueva categoría
-router.post('/', (req, res) => {
-	try {
-		let bodyTemp = '';
-
-		req.on('data', (chunk) => {
-			bodyTemp += chunk.toString();
-		});
-
-		req.on('end', async () => {
-			const data = JSON.parse(bodyTemp);
-			req.body = data;
-			const categoriaSave = new Categoria(req.body);
-			await categoriaSave.save();
-		});
-
-		res.status(201).json({'messege': 'Categoría agregada correctamente'});
-
-	} catch (error) {
-		res.status(204).json({'messege': 'Error, no se puedo registrar la categoría'});
-	}
-});
-
-// Modificar una categoría por su ID
-router.patch('/:id', async (req, res) => {
-	let idCategoriaAEditar = parseInt(req.params.id);
-	let categoriaAActualizar = await Categoria.findByPk(idCategoriaAEditar);
-
-	if (!categoriaAActualizar) {
-		res.status(204).json({'message':'Producto no encontrado'});
-	}
-
-	let bodyTemp = '';
-
-	req.on('data', (chunk) => {
-		bodyTemp += chunk.toString();
-	});
-
-	req.on('end', async () => {
-		const data = JSON.parse(bodyTemp);
-		req.body = data;
-
-		await categoriaAActualizar.update(req.body);
-
-		res.status(200).send('Categoría actualizada');;
-	});
-});
-
-// Eliminar una categoría por su ID
-router.delete('/:id', async (req, res) => {
-	try {
-		const idCategoriaABorrar = parseInt(req.params.id);
-		const categoriaABorrar = await Categoria.findByPk(idCategoriaABorrar);
-		if (!categoriaABorrar) {
-			res.status(204).json({ 'message': 'Categoría no encontrada' });
-		} else {
-			await categoriaABorrar.destroy();
-			res.status(200).json({ 'message': 'Categoría eliminada con éxito' });
-		}
-	} catch (error) {
-		res.status(204).json({ 'message': 'Error al eliminar la categoría' });
-	}
-});
-
-export default router;
+export default categoriasRouter;

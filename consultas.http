@@ -38,7 +38,7 @@ DELETE http://localhost:3000/productos/8
 GET http://localhost:3000/usuarios/
 
 ### Obtención de un Usuario especifico por su ID
-GET http://localhost:3000/usuarios/3/
+GET http://localhost:3000/usuarios/8/
 
 ### Agregar un nuevo Usuario
 POST http://localhost:3000/usuarios/
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 
 ### Borrado de un usuario
-DELETE http://localhost:3000/usuarios/6
+DELETE http://localhost:3000/usuarios/7
 
 
 ###--------------------------------------------- CATEGORIAS ----------------------------------------------

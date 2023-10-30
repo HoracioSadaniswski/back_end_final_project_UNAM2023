@@ -9,7 +9,7 @@ const app = express();
 
 const port = 3000;
 
-//Middleware para la validación de los tokens recibidos
+/* //Middleware para la validación de los tokens recibidos
 function autenticacionDeToken(req, res, next) {
 	const headerAuthorization = req.headers['authorization'];
 
@@ -101,7 +101,7 @@ app.post('/auth', async (req, res) => {
 
 	res.status(200).json({ accessToken: token });
 
-});
+}); */
 
 app.get('/', (req, res) => {
 	res.status(200).send(html);
