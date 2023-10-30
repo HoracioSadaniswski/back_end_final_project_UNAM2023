@@ -112,3 +112,15 @@ Authorization: Bearer
 DELETE http://localhost:3000/categorias/11
 Authorization: Bearer
 
+###--------------------------------------------- CARRITO ----------------------------------------------
+### AGREGAR PRODUCTO AL CARRITO DE UN USUARIO
+POST http://localhost:3000/carrito/9
+Content-Type: application/json
+
+{
+	"producto_id": 268,
+  "cantidad": 1
+}
+
+### VER CONTENIDO DEL CARRITO DE UN USUARIO
+GET http://localhost:3000/carrito/9

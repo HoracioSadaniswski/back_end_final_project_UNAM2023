@@ -36,10 +36,10 @@ export async function saveProduct (req, res) {
 			//guardado nuevo producto
 			await productSave.save();
 
-			res.status(201).json({"message": "success"});
+			res.status(201).json({'message': 'success'});
 
 		} catch (error) {
-			res.status(204).json({"message": "error"});
+			res.status(204).json({'message': 'error'});
 		};
 	};
 };
