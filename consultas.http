@@ -9,6 +9,13 @@ Content-Type: application/json
     }
 
 
+
+
+
+
+
+
+
 ###---------------------------------------------------------------USUARIOS--------------------------------------------------------------------------
 
 ### Obtencion de todos los Usuarios
@@ -47,6 +54,11 @@ Authorization: Bearer
 DELETE http://localhost:3000/usuarios/5
 Authorization: Bearer
 
+
+
+
+
+
 ###---------------------------------------------------------------PRODUCTOS---------------------------------------------------------------------------
 
 ### Obtencion de todos los productos (acceso sin token)
@@ -84,7 +96,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJ1c3Vhc
 
 
 
-###--------------------------------------------- CATEGORIAS ----------------------------------------------
+
+
+
+###------------------------------------------------------ CATEGORIAS -----------------------------------------------------------------
+
 ###Obtención de todas las Categorías (acceso sin token)
 GET http://localhost:3000/categorias/
 
@@ -111,21 +127,26 @@ Authorization: Bearer
 DELETE http://localhost:3000/categorias/11
 Authorization: Bearer
 
-###--------------------------------------------- CARRITO ----------------------------------------------
-### AGREGAR PRODUCTO AL CARRITO DE UN USUARIO SI ES EL MISMO PRODUCTO SE MODIFICA SOLO LA CANTIDAD (debe ser usuario nivel 1)
+
+
+
+
+###------------------------------------------------------------------ CARRITO -------------------------------------------------------------------------
+
+### AGREGAR PRODUCTO AL CARRITO DE UN USUARIO, SI ES EL MISMO PRODUCTO SE MODIFICA SOLO LA CANTIDAD, MODIFICA EL STOCK EN LA BASE DE DATOS Y VERIFICA LA EXISTENCIA DE LA CANTIDAD DE PRODUCTOS (debe ser usuario nivel 1)
 POST http://localhost:3000/carrito/9
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NjU2MDM1MywiaWF0IjoxNjk4NzY1OTYwfQ.YcrNIK59HhlhTJgdspPgnfxyrcIKNu5oAFr9PiXjmGk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NzM3NTMzNiwiaWF0IjoxNjk4NzY2Nzc1fQ.9Le2w8vKZocrrp4y7jbt920l8x7Bl6GWVQaqOm38uWY
 
 {
-	"producto_id": 27,
-  "cantidad": 5
+	"producto_id": 26,
+  "cantidad": 50
 }
 
 ### VER CONTENIDO DEL CARRITO DE UN USUARIO (debe ser nivel 1 o 3)
 GET http://localhost:3000/carrito/9
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NjU2MDM1MywiaWF0IjoxNjk4NzY1OTYwfQ.YcrNIK59HhlhTJgdspPgnfxyrcIKNu5oAFr9PiXjmGk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NzM3NTMzNiwiaWF0IjoxNjk4NzY2Nzc1fQ.9Le2w8vKZocrrp4y7jbt920l8x7Bl6GWVQaqOm38uWY
 
-### eliminar productos del carrito de un usuario (nivel 1 y 3) (se debe colocar primero en la ruta el id del usuario y despues el id del producto a eliminar
-DELETE http://localhost:3000/carrito/9/30
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NjU2MDM1MywiaWF0IjoxNjk4NzY1OTYwfQ.YcrNIK59HhlhTJgdspPgnfxyrcIKNu5oAFr9PiXjmGk
+### eliminar productos del carrito de un usuario (nivel 1 y 3) (se debe colocar primero en la ruta el id del usuario y despues el id del producto a eliminar) (AL REALIZAR ESTA ACCIÓN SE MODIFICA EL STOCK DE LA BASE DE DATOS AGREGANDO NUEVAMENTE LOS PRODUCTOS ELIMINADOS)
+DELETE http://localhost:3000/carrito/9/26
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NzgzNjI3NywiaWF0IjoxNjk4NzY3MjM2fQ.GXIodcfriKXsLuALbe5Ubn7YB6jdWQbHpiXPKVEDeyY

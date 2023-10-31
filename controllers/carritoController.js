@@ -56,10 +56,10 @@ export async function contentToCartById(req, res) {
 // Agregar productos al carrito de un usuario
 export async function addProductToCart(req, res) {
 	if (req.nivelUsuario !== 1) {
-		return res.status(401).json({'message':'No puedes agregar contenido al carrito de un usuario'});
+		return res.status(401).json({ message: 'No puedes agregar contenido al carrito de un usuario' });
 	} else {
 		try {
-			const usuario_id  = req.params.id;
+			const usuario_id = req.params.id;
 			const producto_id = parseInt(req.body.producto_id); // Convertir a número entero
 			const cantidad = parseInt(req.body.cantidad); // Convertir a número entero
 
@@ -74,6 +74,15 @@ export async function addProductToCart(req, res) {
 			if (!producto) {
 				return res.status(404).json({ message: 'Producto no encontrado' });
 			}
+
+			// Verificar si hay suficiente stock disponible para el producto
+			if (producto.stock < cantidad) {
+				return res.status(400).json({ message: 'Sin stock disponible' });
+			}
+
+			// Actualizar el stock del producto
+			producto.stock -= cantidad;
+			await producto.save();
 
 			// Verificar si el producto ya está en el carrito del usuario
 			const carritoExistente = await Carrito.findOne({
@@ -100,13 +109,13 @@ export async function addProductToCart(req, res) {
 		} catch (error) {
 			res.status(500).json({ message: 'Error al agregar producto al carrito' });
 		}
-	};
-};
+	}
+}
 
 // Eliminar un producto del carrito
-export async function deleteProductToCart (req, res) {
+export async function deleteProductToCart(req, res) {
 	if (req.nivelUsuario == 2) {
-		return res.status(401).json({'message':'No puedes quitar contenido del carrito de un usuario'});
+		return res.status(401).json({ message: 'No puedes quitar contenido del carrito de un usuario' });
 	} else {
 		const usuario_id = req.params.usuario_id;
 		const producto_id = req.params.producto_id;
@@ -135,8 +144,16 @@ export async function deleteProductToCart (req, res) {
 			});
 
 			if (carritoExistente) {
+				// Obtener la cantidad eliminada
+				const cantidadEliminada = carritoExistente.cantidad;
+
 				// Eliminar el producto del carrito
 				await carritoExistente.destroy();
+
+				// Incrementar el stock del producto
+				producto.stock += cantidadEliminada;
+				await producto.save();
+
 				return res.json({ message: 'Producto eliminado del carrito exitosamente' });
 			} else {
 				return res.status(404).json({ error: 'Producto no encontrado en el carrito del usuario' });
@@ -145,9 +162,8 @@ export async function deleteProductToCart (req, res) {
 			console.error('Error al eliminar producto del carrito:', error);
 			res.status(500).json({ error: 'Error al eliminar producto del carrito' });
 		}
-	};
+	}
 };
-
 
 
 
