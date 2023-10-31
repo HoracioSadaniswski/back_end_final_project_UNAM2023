@@ -6,7 +6,7 @@ import { getAllUsers, getDataUserById, saveNewUser, editUserById, deleteUserById
 
 usuariosRouter.get('/', getAllUsers);
 usuariosRouter.get('/:id', tokenAuthentication, getDataUserById);
-usuariosRouter.post('/', tokenAuthentication, saveNewUser);
+usuariosRouter.post('/', saveNewUser);
 usuariosRouter.patch('/:id', tokenAuthentication, editUserById);
 usuariosRouter.delete('/:id', tokenAuthentication, deleteUserById);
 

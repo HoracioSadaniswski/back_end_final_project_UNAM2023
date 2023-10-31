@@ -27,8 +27,8 @@ export async function saveNewCategory (req, res) {
 		return res.status(401).json({'message':'Debes ser Administrador para realizar esta acción'});
 	} else {
 		try {
-				const categoriaSave = new Categoria(req.body);
-				await categoriaSave.save();
+			const categoriaSave = new Categoria(req.body);
+			await categoriaSave.save();
 
 			res.status(201).json({'messege': 'Categoría agregada correctamente'});
 

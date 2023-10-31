@@ -15,14 +15,13 @@ Content-Type: application/json
 GET http://localhost:3000/usuarios/
 
 
-### Obtención de un Usuario especifico por su ID
+### Obtención de un Usuario especifico por su ID (solo usuarios nivel 3)
 GET http://localhost:3000/usuarios/10/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwiZXhwIjoxNjk4NjgxNDg5NzgzLCJpYXQiOjE2OTg2ODE0Mjl9.P_Dpkalduky7YxIq-aaX4wQsUfwYr6dtNmPUN-dZe94
 
-### Agregar un nuevo Usuario
+### Agregar un nuevo Usuario (sin autorizacion por token para poder logearse por promera vez)
 POST http://localhost:3000/usuarios/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwiZXhwIjoxNjk4NjgxNjMxMzAyLCJpYXQiOjE2OTg2ODE1NzF9.kI69xrpIUeJEPtLxHwM-hoUzvDAa0NKVirzAD_1OX5U
 
 {
     "nombres": "Nuevo Usuario",
@@ -35,7 +34,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFya
 		"usuario": "usuario123"
 }
 
-### Modificar atributo de usuario
+### Modificar atributo de usuario (debe ser usuario nivel 1, 2 o 3)
 PATCH http://localhost:3000/usuarios/6
 Content-Type: application/json
 Authorization: Bearer
@@ -44,19 +43,19 @@ Authorization: Bearer
     "nombres": "nuevo nombre"
 }
 
-### Borrado de un usuario
+### Borrado de un usuario (debe ser usuario nivel 3)
 DELETE http://localhost:3000/usuarios/5
 Authorization: Bearer
 
 ###---------------------------------------------------------------PRODUCTOS---------------------------------------------------------------------------
 
-### Obtencion de todos los productos
+### Obtencion de todos los productos (acceso sin token)
 GET http://localhost:3000/productos/
 
-### Obtención de un producto específico
+### Obtención de un producto específico (acceso sin token)
 GET http://localhost:3000/productos/32/
 
-### Agregado de un producto nuevo, el body lleva el json con el objeto
+### Agregado de un producto nuevo (debe ser usuario nivel 3)
 POST http://localhost:3000/productos
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJ1c3VhcmlvIjoicGVkcm83ODkiLCJuaXZlbCI6MywiZXhwIjoxNjk4Njg3MjgwMjA2LCJpYXQiOjE2OTg2ODY2ODB9.ew0xq4Ew_QolETttLiza48hqEyEbBmli4TkEiCFFphU
@@ -70,7 +69,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJ1c3Vhc
   "imagen_url": "Monitor.jpg"
 }
 
-### Actualización de un producto, el body lleva solo el atributo a modificar
+### Actualización de un producto, el body lleva solo el atributo a modificar (usuarios nivel 3)
 PATCH http://localhost:3000/productos/33
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODY4NzM1MTI0NiwiaWF0IjoxNjk4Njg2NzUxfQ.NVKf8IwsngjHpjnpnEjVZ9iyz952-tCUsZO4zvDMWlk
@@ -79,20 +78,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFya
     "precio": "350.00"
 }
 
-### Borrado de un producto
+### Borrado de un producto (usuario nivel 3)
 DELETE http://localhost:3000/productos/32
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjExLCJ1c3VhcmlvIjoicGVkcm83ODkiLCJuaXZlbCI6MywiZXhwIjoxNjk4Njg2ODczMzQ0LCJpYXQiOjE2OTg2ODYyNzN9.YTefS74r0MybrjzgW0KaDICZ92yEHgVy6yNIBK_qG8c
 
 
 
 ###--------------------------------------------- CATEGORIAS ----------------------------------------------
-###Obtención de todas las Categorías
+###Obtención de todas las Categorías (acceso sin token)
 GET http://localhost:3000/categorias/
 
-###Obtención de una Categoría específica por su ID
+###Obtención de una Categoría específica por su ID (acceso sin token)
 GET http://localhost:3000/categorias/11/
 
-###Agregar una nueva Categoría
+###Agregar una nueva Categoría (usuario nivel 3)
 POST http://localhost:3000/categorias/
 Content-Type: application/json
 Authorization: Bearer
@@ -100,7 +99,7 @@ Authorization: Bearer
 {
   "nombre": "Nueva Categoría"
 }
-###Actualización de una Categoría, el body lleva solo el atributo a modificar
+###Actualización de una Categoría, el body lleva solo el atributo a modificar (nivel 3)
 PATCH http://localhost:3000/categorias/11
 Content-Type: application/json
 Authorization: Bearer
@@ -108,19 +107,25 @@ Authorization: Bearer
 {
     "nombre": "Nueva Categoría Modificada"
 }
-###Borrado de una Categoría
+###Borrado de una Categoría (nivel 3 - para borrar la categoría no deben haber productos asociados)
 DELETE http://localhost:3000/categorias/11
 Authorization: Bearer
 
 ###--------------------------------------------- CARRITO ----------------------------------------------
-### AGREGAR PRODUCTO AL CARRITO DE UN USUARIO
+### AGREGAR PRODUCTO AL CARRITO DE UN USUARIO SI ES EL MISMO PRODUCTO SE MODIFICA SOLO LA CANTIDAD (debe ser usuario nivel 1)
 POST http://localhost:3000/carrito/9
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NjU2MDM1MywiaWF0IjoxNjk4NzY1OTYwfQ.YcrNIK59HhlhTJgdspPgnfxyrcIKNu5oAFr9PiXjmGk
 
 {
-	"producto_id": 268,
-  "cantidad": 1
+	"producto_id": 27,
+  "cantidad": 5
 }
 
-### VER CONTENIDO DEL CARRITO DE UN USUARIO
+### VER CONTENIDO DEL CARRITO DE UN USUARIO (debe ser nivel 1 o 3)
 GET http://localhost:3000/carrito/9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NjU2MDM1MywiaWF0IjoxNjk4NzY1OTYwfQ.YcrNIK59HhlhTJgdspPgnfxyrcIKNu5oAFr9PiXjmGk
+
+### eliminar productos del carrito de un usuario (nivel 1 y 3) (se debe colocar primero en la ruta el id del usuario y despues el id del producto a eliminar
+DELETE http://localhost:3000/carrito/9/30
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NjU2MDM1MywiaWF0IjoxNjk4NzY1OTYwfQ.YcrNIK59HhlhTJgdspPgnfxyrcIKNu5oAFr9PiXjmGk

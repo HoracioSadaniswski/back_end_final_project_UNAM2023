@@ -25,7 +25,7 @@ export async function getOneProductById (req, res) {
 	}
 };
 
-//agregar un nuevo producto
+//agregar un nuevo producto (solo administradores)
 export async function saveProduct (req, res) {
 	if (req.nivelUsuario !== 3) {
 		return res.status(401).json({'message':'Debes ser Administrador para realizar esta acción'});
@@ -44,7 +44,7 @@ export async function saveProduct (req, res) {
 	};
 };
 
-//editar el parámetro de un producto por su id
+//editar el parámetro de un producto por su id (solo administradores)
 export async function editProductById (req, res) {
 	if (req.nivelUsuario !== 3) {
 		return res.status(401).json({'message':'Debes ser Administrador para realizar esta acción'});
@@ -61,7 +61,7 @@ export async function editProductById (req, res) {
 	};
 };
 
-//eliminar un producto de la db
+//eliminar un producto de la db (solo administradores)
 export async function deleteProduct (req, res) {
 	if (req.nivelUsuario !== 3) {
 		return res.status(401).json({'message':'Debes ser Administrador para realizar esta acción'});

@@ -1,11 +1,12 @@
 import express from 'express';
-//import tokenAuthentication from '../middlewares/tokenAuthentication.js';
+import tokenAuthentication from '../middlewares/tokenAuthentication.js';
 const carritoRouter = express.Router();
 
-import { addProductToCart, contentToCartById } from '../controllers/carritoController.js';
+import { addProductToCart, contentToCartById, deleteProductToCart } from '../controllers/carritoController.js';
 
-carritoRouter.get('/:id', contentToCartById);
-carritoRouter.post('/:id', addProductToCart);
+carritoRouter.get('/:id', tokenAuthentication, contentToCartById);
+carritoRouter.post('/:id', tokenAuthentication, addProductToCart);
+carritoRouter.delete('/:usuario_id/:producto_id', tokenAuthentication, deleteProductToCart);
 
 
 

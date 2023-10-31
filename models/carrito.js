@@ -1,22 +1,22 @@
 import db from '../db/connection.js';
 import { DataTypes } from 'sequelize';
-import Usuario from './usuario.js'; // Importa tu modelo de Usuario
-import Producto from './producto.js'; // Importa tu modelo de Producto
+import Usuario from './usuario.js';
+import Producto from './producto.js';
 
 const Carrito = db.define('Carrito', {
 	cliente_id: {
 		type: DataTypes.INTEGER,
-	    primaryKey: true, // Esta columna forma parte de la clave primaria
+	    primaryKey: true, //  clave primaria
 		references: {
-	        model: Usuario, // Utiliza el modelo relacionado, en lugar del nombre de la tabla
+	        model: Usuario, // Utiliza el modelo relacionado
 			key: 'id',
 		},
 	},
 	producto_id: {
 		type: DataTypes.INTEGER,
-	    primaryKey: true, // Esta columna forma parte de la clave primaria
+	    primaryKey: true, // clave primaria
 		references: {
-	        model: Producto, // Utiliza el modelo relacionado, en lugar del nombre de la tabla
+	        model: Producto, // Utiliza el modelo relacionado
 			key: 'id',
 		},
 	},

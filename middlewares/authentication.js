@@ -10,16 +10,16 @@ async function authentication (req, res) {
 
 	//comprobación del usuario
 	try {
-			usuarioEncontrado = await Usuario.findAll({where:{usuario:usuarioABuscar}});
+		usuarioEncontrado = await Usuario.findAll({where:{usuario:usuarioABuscar}});
 
-			if (usuarioEncontrado == '') { return res.status(400).json({message: 'Usuario no encontrado'}) };
+		if (usuarioEncontrado == '') { return res.status(400).json({message: 'Usuario no encontrado'}); };
 	} catch (error) {
-			return res.status(400).json({message: 'Usuario no encontrado'});
+		return res.status(400).json({message: 'Usuario no encontrado'});
 	};
 
 	//comprobación del password
 	if (usuarioEncontrado[0].password !== passwordRecibida){
-			return res.status(400).json({message: 'Password incorrecto'});
+		return res.status(400).json({message: 'Password incorrecto'});
 	}
 
 	// generarión del token
@@ -29,10 +29,10 @@ async function authentication (req, res) {
 
 	//firma y construccion del token
 	const token = jwt.sign({
-			sub,
-			usuario,
-			nivel,
-			exp: Date.now() + (60 * 10000)
+		sub,
+		usuario,
+		nivel,
+		exp: Date.now() + (60 * 10000)
 	}, process.env.SECRET_KEY);
 
 	res.status(200).json({ accessToken: token });
