@@ -4,14 +4,9 @@ POST http://localhost:3000/auth
 Content-Type: application/json
 
     {
-        "usuario": "juan123",
-        "password": "password1"
+        "usuario": "ana234",
+        "password": "password4"
     }
-
-
-
-
-
 
 
 
@@ -134,18 +129,18 @@ Authorization: Bearer
 ###------------------------------------------------------------------ CARRITO -------------------------------------------------------------------------
 
 ### AGREGAR PRODUCTO AL CARRITO DE UN USUARIO, SI ES EL MISMO PRODUCTO SE MODIFICA SOLO LA CANTIDAD, MODIFICA EL STOCK EN LA BASE DE DATOS Y VERIFICA LA EXISTENCIA DE LA CANTIDAD DE PRODUCTOS (debe ser usuario nivel 1)
-POST http://localhost:3000/carrito/9
+POST http://localhost:3000/carrito/12
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NzM3NTMzNiwiaWF0IjoxNjk4NzY2Nzc1fQ.9Le2w8vKZocrrp4y7jbt920l8x7Bl6GWVQaqOm38uWY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJ1c3VhcmlvIjoiYW5hMjM0Iiwibml2ZWwiOjEsImV4cCI6MTY5ODc3NTc3ODA0MiwiaWF0IjoxNjk4Nzc1MTc4fQ.E4rVzdzOrUy1qV4_Mi3JK8TH7bv8b4y8c0KjmIg67nI
 
 {
-	"producto_id": 26,
-  "cantidad": 50
+	"producto_id": 31,
+  "cantidad": 1
 }
 
 ### VER CONTENIDO DEL CARRITO DE UN USUARIO (debe ser nivel 1 o 3)
-GET http://localhost:3000/carrito/9
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc3MjA4NDYzMSwiaWF0IjoxNjk4NzcxNDg0fQ.EWVVrUqAVyOtcqAlNYkVrnzCmSekuyjc9Yt-XQEzh_o
+GET http://localhost:3000/carrito/12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJ1c3VhcmlvIjoiYW5hMjM0Iiwibml2ZWwiOjEsImV4cCI6MTY5ODc3NTc3ODA0MiwiaWF0IjoxNjk4Nzc1MTc4fQ.E4rVzdzOrUy1qV4_Mi3JK8TH7bv8b4y8c0KjmIg67nI
 
 ### eliminar productos del carrito de un usuario (nivel 1 y 3) (se debe colocar primero en la ruta el id del usuario y despues el id del producto a eliminar) (AL REALIZAR ESTA ACCIÓN SE MODIFICA EL STOCK DE LA BASE DE DATOS AGREGANDO NUEVAMENTE LOS PRODUCTOS ELIMINADOS)
 DELETE http://localhost:3000/carrito/9/26
@@ -155,11 +150,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFya
 ###-----------------------------------------------------VENTAS-----------------------------------------------------------
 
 ### GENERAR UNA VENTA DE UN USUARIO QUE YA TENGA UN CARRITO CREADO (al crear la venta se elimina automaticamente el carrito creado - debe coincidir en la ruta y el body json el id del usuario ) (usuarios nivel 1)
-POST http://localhost:3000/ventas/9
+POST http://localhost:3000/ventas/12
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc3MjA4NDYzMSwiaWF0IjoxNjk4NzcxNDg0fQ.EWVVrUqAVyOtcqAlNYkVrnzCmSekuyjc9Yt-XQEzh_o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJ1c3VhcmlvIjoiYW5hMjM0Iiwibml2ZWwiOjEsImV4cCI6MTY5ODc3NTc3ODA0MiwiaWF0IjoxNjk4Nzc1MTc4fQ.E4rVzdzOrUy1qV4_Mi3JK8TH7bv8b4y8c0KjmIg67nI
 
 {
     "usuario_id": 9
 }
 
+### SOLICITAR DETALLES DE VENTAS/COMPRAS HACIA UN USUARIO (nivel 1 y 3)
+GET http://localhost:3000/ventas/12
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJ1c3VhcmlvIjoiYW5hMjM0Iiwibml2ZWwiOjEsImV4cCI6MTY5ODc3NTc3ODA0MiwiaWF0IjoxNjk4Nzc1MTc4fQ.E4rVzdzOrUy1qV4_Mi3JK8TH7bv8b4y8c0KjmIg67nI
+
+
+### ELIMINAR UN RESGISTRO DE VENTA (nivel 3) (Se debe colocar el usuario_id y venta_id en la ruta)
+DELETE http://localhost:3000/ventas/12/4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEyLCJ1c3VhcmlvIjoiYW5hMjM0Iiwibml2ZWwiOjEsImV4cCI6MTY5ODc3NTc3ODA0MiwiaWF0IjoxNjk4Nzc1MTc4fQ.E4rVzdzOrUy1qV4_Mi3JK8TH7bv8b4y8c0KjmIg67nI
