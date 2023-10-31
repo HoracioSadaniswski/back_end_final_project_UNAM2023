@@ -145,8 +145,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFya
 
 ### VER CONTENIDO DEL CARRITO DE UN USUARIO (debe ser nivel 1 o 3)
 GET http://localhost:3000/carrito/9
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NzM3NTMzNiwiaWF0IjoxNjk4NzY2Nzc1fQ.9Le2w8vKZocrrp4y7jbt920l8x7Bl6GWVQaqOm38uWY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc3MjA4NDYzMSwiaWF0IjoxNjk4NzcxNDg0fQ.EWVVrUqAVyOtcqAlNYkVrnzCmSekuyjc9Yt-XQEzh_o
 
 ### eliminar productos del carrito de un usuario (nivel 1 y 3) (se debe colocar primero en la ruta el id del usuario y despues el id del producto a eliminar) (AL REALIZAR ESTA ACCIÓN SE MODIFICA EL STOCK DE LA BASE DE DATOS AGREGANDO NUEVAMENTE LOS PRODUCTOS ELIMINADOS)
 DELETE http://localhost:3000/carrito/9/26
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc2NzgzNjI3NywiaWF0IjoxNjk4NzY3MjM2fQ.GXIodcfriKXsLuALbe5Ubn7YB6jdWQbHpiXPKVEDeyY
+
+
+###-----------------------------------------------------VENTAS-----------------------------------------------------------
+
+### GENERAR UNA VENTA DE UN USUARIO QUE YA TENGA UN CARRITO CREADO (al crear la venta se elimina automaticamente el carrito creado - debe coincidir en la ruta y el body json el id del usuario ) (usuarios nivel 1)
+POST http://localhost:3000/ventas/9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksInVzdWFyaW8iOiJqdWFuMTIzIiwibml2ZWwiOjEsImV4cCI6MTY5ODc3MjA4NDYzMSwiaWF0IjoxNjk4NzcxNDg0fQ.EWVVrUqAVyOtcqAlNYkVrnzCmSekuyjc9Yt-XQEzh_o
+
+{
+    "usuario_id": 9
+}
+
