@@ -11,6 +11,23 @@ export async function getAllUsers (req, res) {
 	}
 };
 
+//lista de usuarios por nivel de acceso
+export async function getUsersForLevel (req, res) {
+	try {
+		const nivel = req.params.nivel;
+
+		// Consulta la base de datos para obtener usuarios con el nivel especificado
+		const usuarios = await Usuario.findAll({
+			where: { nivel: nivel },
+		});
+
+		res.json(usuarios);
+	} catch (error) {
+		console.error('Error al obtener usuarios por nivel:', error);
+		res.status(500).json({ message: 'Error al obtener usuarios por nivel' });
+	}
+};
+
 //información de un usuario por id (información provista solo para administradores)
 export async function getDataUserById (req, res) {
 	if (req.nivelUsuario !== 3) {

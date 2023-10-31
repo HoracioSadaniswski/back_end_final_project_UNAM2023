@@ -16,6 +16,8 @@ Content-Type: application/json
 ### Obtencion de todos los Usuarios
 GET http://localhost:3000/usuarios/
 
+### Obtencion de usuario por nivel (nivel 1: clientes / nivel 2: proveedores / nivel 3: administradores)
+GET http://localhost:3000/usuarios/1
 
 ### Obtención de un Usuario especifico por su ID (solo usuarios nivel 3)
 GET http://localhost:3000/usuarios/10/
@@ -60,7 +62,7 @@ Authorization: Bearer
 GET http://localhost:3000/productos/
 
 ### Obtención de un producto específico (acceso sin token)
-GET http://localhost:3000/productos/32/
+GET http://localhost:3000/productos/31/
 
 ### Agregado de un producto nuevo (debe ser usuario nivel 3)
 POST http://localhost:3000/productos
