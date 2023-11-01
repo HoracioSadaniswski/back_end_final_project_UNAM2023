@@ -5,7 +5,56 @@ import routerApi from './routes/routerApi.js';
 import makeBody from './middlewares/makeBody.js';
 import authentication from './middlewares/authentication.js';
 
-const html = '<h1>Bienvenido a la API</h1><p>Los comandos disponibles son:</p><ul><li>GET: /productos/</li><li>GET: /productos/id</li><li>POST: /productos/</li><li>DELETE: /productos/id</li><li>PUT: /productos/id</li><li>PATCH: /productos/id</li><li>GET: /usuarios/</li><li>GET: /usuarios/id</li><li>POST: /usuarios/</li><li>DELETE: /usuarios/id</li><li>PUT: /usuarios/id</li><li>PATCH: /usuarios/id</li></ul>';
+const html = `
+<h1>Bienvenido a la API</h1>
+<p>Los comandos disponibles son:</p>
+<ul>
+    <li><strong>LOGIN</strong></li>
+    <ul>
+        <li>POST: /auth</li>
+    </ul>
+    <li><strong>USUARIOS</strong></li>
+    <ul>
+        <li>GET: /usuarios/</li>
+        <li>GET: /usuarios/nivel/3</li>
+        <li>GET: /usuarios/16/ (Authorization required)</li>
+        <li>POST: /usuarios/ (Create User)</li>
+        <li>PATCH: /usuarios/16 (Update User)</li>
+        <li>DELETE: /usuarios/15 (Delete User)</li>
+    </ul>
+    <li><strong>PRODUCTOS</strong></li>
+    <ul>
+        <li>GET: /productos/</li>
+        <li>GET: /productos/34/</li>
+        <li>GET: /productos/total-stock (Authorization required)</li>
+        <li>POST: /productos (Create Product, Authorization required)</li>
+        <li>PATCH: /productos/34 (Update Product, Authorization required)</li>
+        <li>PATCH: /productos/stock/34 (Update Product Stock, Authorization required)</li>
+        <li>DELETE: /productos/33 (Delete Product, Authorization required)</li>
+    </ul>
+    <li><strong>CATEGORIAS</strong></li>
+    <ul>
+        <li>GET: /categorias/</li>
+        <li>GET: /categorias/13/</li>
+        <li>POST: /categorias/ (Create Category, Authorization required)</li>
+        <li>PATCH: /categorias/13 (Update Category, Authorization required)</li>
+        <li>DELETE: /categorias/11 (Delete Category, Authorization required)</li>
+    </ul>
+    <li><strong>CARRITO</strong></li>
+    <ul>
+        <li>POST: /carrito/9 (Add Product to Cart, Authorization required)</li>
+        <li>GET: /carrito/9 (View Cart, Authorization required)</li>
+        <li>DELETE: /carrito/9/31 (Remove Product from Cart, Authorization required)</li>
+    </ul>
+    <li><strong>VENTAS</strong></li>
+    <ul>
+        <li>GET: /ventas/all (List All Sales, Authorization required)</li>
+        <li>POST: /ventas/9 (Create Sale, Authorization required)</li>
+        <li>GET: /ventas/9 (View Sales Details, Authorization required)</li>
+        <li>DELETE: /ventas/9/1 (Delete Sale, Authorization required)</li>
+    </ul>
+</ul>
+`;
 
 const app = express();
 
