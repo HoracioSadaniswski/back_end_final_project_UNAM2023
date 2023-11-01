@@ -64,7 +64,7 @@ export async function saveNewUser (req, res) {
 
 //modificar atributo de un usuario (acceso para los tres niveles de ususario)
 export async function editUserById (req, res) {
-	if (req.nivelUsuario !== 3 || req.nivelUsuario !== 2 || req.nivelUsuario !== 1 ) {
+	if (req.nivelUsuario == 2 ) {
 		return res.status(401).json({'message':'Debes ser Administrador para realizar esta acción'});
 	} else {
 		let idUsuarioAActualizar = parseInt(req.params.id);

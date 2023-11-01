@@ -4,10 +4,10 @@ const usuariosRouter = express.Router();
 
 import { getAllUsers, getDataUserById, saveNewUser, editUserById, deleteUserById, getUsersForLevel } from '../controllers/usuariosController.js';
 
-usuariosRouter.get('/', getAllUsers);
-usuariosRouter.get('/:nivel', getUsersForLevel);
-usuariosRouter.post('/', saveNewUser);
 usuariosRouter.get('/:id', tokenAuthentication, getDataUserById);
+usuariosRouter.get('/nivel/:nivel', getUsersForLevel);
+usuariosRouter.get('/', getAllUsers);
+usuariosRouter.post('/', saveNewUser);
 usuariosRouter.patch('/:id', tokenAuthentication, editUserById);
 usuariosRouter.delete('/:id', tokenAuthentication, deleteUserById);
 

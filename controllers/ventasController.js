@@ -3,6 +3,25 @@ import Venta from '../models/ventas.js';
 import Carrito from '../models/carrito.js';
 import Producto from '../models/producto.js';
 
+export async function listAllSales(req, res) {
+	if (req.nivelUsuario !== 3) {
+		return res.status(401).json({'message': 'Debes ser Administrador para realizar esta acción'});
+	}
+
+	try {
+		// Busca todas las ventas
+		const ventas = await Venta.findAll();
+
+		if (ventas.length === 0) {
+			return res.status(404).json({ message: 'No se encontraron ventas' });
+		}
+
+		return res.status(200).json({ ventas });
+	} catch (error) {
+		console.error('Error al listar las ventas:', error);
+		return res.status(500).json({ message: 'Error al listar las ventas' });
+	}
+};
 
 export async function listSalesByUserId(req, res) {
 	if (req.nivelUsuario == 2) {
@@ -40,7 +59,7 @@ export async function createVenta(req, res) {
 				where: {
 					cliente_id: usuario_id,
 				},
-				include: Producto, // Incluye el modelo Producto
+				include: Producto,
 			});
 
 			if (carrito.length === 0) {
@@ -57,7 +76,7 @@ export async function createVenta(req, res) {
 				const productosVendidos = [];
 
 				for (const item of carrito) {
-					const producto = item.Producto; // Producto asociado al item
+					const producto = item.Producto;
 
 					montoTotal += item.cantidad * producto.precio;
 
